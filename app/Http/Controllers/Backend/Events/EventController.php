@@ -32,15 +32,15 @@ class EventController extends Controller
                 'description' => $request->description,
                 'date' => $request->date,
                 'location' => $request->location,
-                'type_id' => $request->type_id,
+                'type_event' => $request->type_event,
                 'created_by' => Auth::user()->usuario
             ]);
             DB::commit();
-            return ['success' => 99];
+            return ['status' => 200, 'message' => 'Evento creado correctamente.'];
         } catch (\Exception $e) {
             Log::info('error ' . $e->getMessage());
             DB::rollback();
-            return ['success' => 99];
+            return ['status' => 500, 'message' => 'Error al crear el evento.'];
         }
     }
 
@@ -55,16 +55,15 @@ class EventController extends Controller
             $event->description = $request->description;
             $event->date = $request->date;
             $event->location = $request->location;
-            $event->type_id = $request->type_id;
+            $event->type_event = $request->type_event;
             $event->updated_by = Auth::user()->usuario;
             $event->save();
             DB::commit();
-            return ['success' => 99];
-         
+            return ['status' => 200, 'message' => 'Evento actualizado correctamente.'];
         } catch (\Exception $e) {
             Log::info('error ' . $e->getMessage());
             DB::rollback();
-            return ['success' => 99];
+            return ['status' => 500, 'message' => 'Error al actualizar el evento.'];
         }
     }
     public function show($id)
@@ -73,7 +72,19 @@ class EventController extends Controller
     }
     public function destroy($id)
     {
-        // Logic to delete the event
-        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+        try {
+            DB::beginTransaction();
+            $event = Event::find($id);
+
+            if (!$event) {
+                return ['status' => 404, 'message' => 'Evento no encontrado.'];
+            }
+            $event->delete();
+            DB::commit();
+            return ['status' => 200, 'message' => 'Evento actualizado correctamente.'];
+        } catch (\Exception $e) {
+            DB::rollback();
+            return ['status' => 500, 'message' => 'Error al actualizar el evento.'];
+        }
     }
 }

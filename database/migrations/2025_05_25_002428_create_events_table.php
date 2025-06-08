@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('event_name');
             $table->date('date');
             $table->string('direction');
-            $table->integer('type_id');
+            $table->integer('type_event');
             $table->string('created_by');
             $table->string('updated_by')->nullable();
             $table->timestamps();
