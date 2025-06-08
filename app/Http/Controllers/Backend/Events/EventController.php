@@ -67,13 +67,28 @@ class EventController extends Controller
             return ['success' => 99];
         }
     }
+    // Mostrar detalles de un evento
     public function show($id)
     {
-        return view('backend.events.show', compact('id'));
+        $event = Event::findOrFail($id);// Cambiado para pasar el objeto $event
+        return view('backend.events.show', compact('event'));
     }
-    public function destroy($id)
+    // Obtener y visualizar todos los eventos
+    public function list()
     {
-        // Logic to delete the event
-        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+    $events = Event::all(); 
+    return view('backend.admin.events.list', compact('events'));
     }
-}
+     // Eliminar evento
+     public function destroy($id)
+     {
+         try {
+             $event = Event::findOrFail($id);
+             $event->delete();
+             return redirect()->route('events.list')->with('success', 'Evento eliminado correctamente.');
+         } catch (\Exception $e) {
+             Log::error('Error al eliminar evento: ' . $e->getMessage());
+             return redirect()->route('events.list')->with('error', 'Hubo un problema al eliminar el evento.');
+         }
+     }
+ }

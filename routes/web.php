@@ -61,3 +61,6 @@ Route::get('/admin/dashboard', [DashboardController::class,'vistaDashboard'])->n
 
 //--- EVENTOS ---
 Route::get ('/admin/eventos/index', [EventController::class,'index'])->name('admin.eventos.index');
+Route::get('/admin/eventos/lista', [EventController::class, 'list'])->name('events.list');          // lista con eventos
+Route::get('/admin/eventos/{id}/ver', [EventController::class, 'show'])->name('events.show');       // ver un evento
+Route::delete('/admin/eventos/{id}/eliminar', [EventController::class, 'destroy'])->name('events.destroy'); // eliminar
