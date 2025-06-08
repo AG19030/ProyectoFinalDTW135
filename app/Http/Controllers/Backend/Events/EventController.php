@@ -22,6 +22,12 @@ class EventController extends Controller
         return view('backend.admin.events.events');
     }
 
+    // Muestra la tabla de eventos del sistema
+    public function eventTable(){
+        $events = Event::orderBy('id', 'ASC')->get();
+        return view('backend.admin.events.table.eventtable', compact('events'));
+    }
+
     public function create(Request $request)
     {
         //Crear un Event Request para validar los datos en backend
@@ -60,7 +66,7 @@ class EventController extends Controller
             $event->save();
             DB::commit();
             return ['success' => 99];
-         
+
         } catch (\Exception $e) {
             Log::info('error ' . $e->getMessage());
             DB::rollback();
