@@ -10,22 +10,36 @@
             background-color: #f0f8ff;
         }
         .card {
-            margin-bottom: 1rem;
+            min-height: 300px;
+            padding: 0.75rem;
+        }
+        .weather-icon {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        .card-text, .card p {
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
         }
     </style>
 </head>
 <body>
     <div class="container py-4">
         <h1 class="text-center mb-4">Clima en El Salvador</h1>
-        <div class="row">
+        <div class="row row-cols-1 row-cols-md-3 g-3">
             @foreach ($climas as $clima)
-                <div class="col-md-4">
-                    <div class="card shadow">
-                        <div class="card-body text-center">
+                <div class="col">
+                    <div class="card shadow h-100">
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
                             <h5 class="card-title">{{ $clima['ciudad'] }}</h5>
-
                             @if ($clima['data'])
-                                <img src="https:{{ $clima['data']['current']['condition']['icon'] }}" alt="Icono clima">
+                                <img src="https:{{ $clima['data']['current']['condition']['icon'] }}" alt="Icono clima" class="weather-icon mx-auto d-block">
                                 <p class="card-text">🌡️ {{ $clima['data']['current']['temp_c'] }} °C</p>
                                 <p>🌥️ {{ ucfirst($clima['data']['current']['condition']['text']) }}</p>
                                 <p>💧 {{ $clima['data']['current']['humidity'] }}% humedad</p>
@@ -33,7 +47,6 @@
                             @else
                                 <p class="text-danger">Error: {{ $clima['error'] ?? 'No disponible' }}</p>
                             @endif
-
                         </div>
                     </div>
                 </div>
