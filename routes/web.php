@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\Registro\RegistroController;
 
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Backend\Events\EventController;
+use App\Http\Controllers\WeatherController; //API WEATHER
 
 // --- LOGIN ---
 
@@ -61,3 +62,6 @@ Route::get('/admin/dashboard', [DashboardController::class,'vistaDashboard'])->n
 
 //--- EVENTOS ---
 Route::get ('/admin/eventos/index', [EventController::class,'index'])->name('admin.eventos.index');
+
+//API WEATHER
+Route::get('/climas', [WeatherController::class, 'showMultiple'])->middleware('auth');
