@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Events;
 
+use App;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\Events\EventRequest; 
 
 class EventController extends Controller
 {
@@ -22,9 +24,10 @@ class EventController extends Controller
         return view('backend.admin.events.events');
     }
 
-    public function create(Request $request)
+    public function create(EventRequest $request)
     {
         //Crear un Event Request para validar los datos en backend
+        //Los datos ya validados por el EventRequest
         try {
             DB::beginTransaction();
             Event::create([
@@ -44,13 +47,18 @@ class EventController extends Controller
         }
     }
 
-    public function edit($id, Request $request)
+    public function edit($id, EventRequest $request)
     {
         //Crear un Event Request para validar los datos en backend
         try {
             DB::beginTransaction();
             $event = Event::find($id);
 
+            if (!$event) {
+                return ['status' => 404, 'message' => 'Evento no encontrado.'];
+            }
+
+            //Datos ya validados por el EventRequest   
             $event->name = $request->event_name;
             $event->description = $request->description;
             $event->date = $request->date;
