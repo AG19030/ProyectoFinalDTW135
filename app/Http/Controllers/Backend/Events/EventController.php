@@ -18,8 +18,8 @@ class EventController extends Controller
     }
     public function index()
     {
-
-        return view('backend.admin.events.events');
+        $events = Event::all();
+        return view('backend.menus.index', compact('events'));
     }
 
     public function create(Request $request)
@@ -66,10 +66,7 @@ class EventController extends Controller
             return ['status' => 500, 'message' => 'Error al actualizar el evento.'];
         }
     }
-    public function show($id)
-    {
-        return view('backend.events.show', compact('id'));
-    }
+    
     public function destroy($id)
     {
         try {
