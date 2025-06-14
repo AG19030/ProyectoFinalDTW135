@@ -64,4 +64,4 @@ Route::get('/admin/dashboard', [DashboardController::class,'vistaDashboard'])->n
 Route::get ('/admin/eventos/index', [EventController::class,'index'])->name('admin.eventos.index');
 
 //API WEATHER
-Route::get('/climas', [WeatherController::class, 'showMultiple'])->middleware('auth');
+Route::get('/climas', [WeatherController::class, 'showMultiple'])->middleware('auth')->name('admin.climas');;

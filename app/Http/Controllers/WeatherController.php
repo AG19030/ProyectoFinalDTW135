@@ -41,6 +41,6 @@ class WeatherController extends Controller
             }
         }
 
-        return view('climas', ['climas' => $climas]);
+        return view('backend.admin.climas', ['climas' => $climas]);
     }
 }
