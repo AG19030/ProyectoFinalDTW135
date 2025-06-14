@@ -66,7 +66,10 @@ class EventController extends Controller
             return ['status' => 500, 'message' => 'Error al actualizar el evento.'];
         }
     }
-    
+    public function show($id)
+    {
+        return view('backend.events.show', compact('id'));
+    }
     public function destroy($id)
     {
         try {
