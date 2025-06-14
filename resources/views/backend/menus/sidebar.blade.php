@@ -48,9 +48,19 @@
                         </p>
                     </a>
 
-              
+                 
                 </li>
+                <li class="nav-item">
 
+            
+
+                    <a href="{{ route('admin.climas') }}" target="frameprincipal" class="nav-link">
+                        <i class="far fa-edit"></i>
+                        <p>
+                            API Clima
+                        </p>
+                    </a>
+                </li>
 
 
             </ul>
