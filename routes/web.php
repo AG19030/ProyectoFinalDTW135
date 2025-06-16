@@ -62,16 +62,9 @@ Route::get('/admin/dashboard', [DashboardController::class,'vistaDashboard'])->n
 
 //--- EVENTOS ---
 Route::get ('/admin/eventos/index', [EventController::class,'index'])->name('admin.eventos.index');
-<<<<<<< HEAD
+
 Route::get('/admin/eventos/tabla', [EventController::class, 'eventTable']);
 Route::post('/admin/eventos/nuevo-evento', [EventController::class, 'create']);
-<<<<<<< Updated upstream
 //API WEATHER
 Route::get('/climas', [WeatherController::class, 'showMultiple'])->middleware('auth')->name('admin.climas');;
-=======
-=======
 
-//API WEATHER
-Route::get('/climas', [WeatherController::class, 'showMultiple'])->middleware('auth')->name('admin.climas');;
->>>>>>> origin/main
->>>>>>> Stashed changes
