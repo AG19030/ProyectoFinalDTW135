@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\Registro\RegistroController;
 
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Backend\Events\EventController;
+use App\Http\Controllers\WeatherController; //API WEATHER
 
 // --- LOGIN ---
 
@@ -61,5 +62,3 @@ Route::get('/admin/dashboard', [DashboardController::class,'vistaDashboard'])->n
 
 //--- EVENTOS ---
 Route::get ('/admin/eventos/index', [EventController::class,'index'])->name('admin.eventos.index');
-Route::get('/admin/eventos/tabla', [EventController::class, 'eventTable']);
-Route::post('/admin/eventos/nuevo-evento', [EventController::class, 'create']);
