@@ -12,6 +12,14 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        /*
+        * se excluyen temporalmente las rutas de eventos para evitar problemas con CSRF
+        * en el desarrollo, se recomienda habilitar CSRF en producción.
+        */
+        '/admin/login', 
+        '/admin/eventos/nuevo-evento',
+        '/admin/eventos/editar/*',
+        '/admin/eventos/eliminar/*'
+    
     ];
 }
