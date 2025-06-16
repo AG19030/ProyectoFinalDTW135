@@ -41,7 +41,7 @@ class EventRequest extends FormRequest
                 'date',
                 'after_or_equal:today'
             ],
-            'location' => [
+            'direction' => [
                 'required',
                 'string',
                 'max:255',
@@ -71,9 +71,9 @@ class EventRequest extends FormRequest
             'date.date' => 'La fecha debe tener un formato válido.',
             'date.after_or_equal' => 'La fecha del evento no puede ser anterior a hoy.',
             
-            'location.required' => 'La ubicación del evento es obligatoria.',
-            'location.min' => 'La ubicación debe tener al menos 3 caracteres.',
-            'location.max' => 'La ubicación no puede exceder los 255 caracteres.',
+            'direction.required' => 'La ubicación del evento es obligatoria.',
+            'direction.min' => 'La ubicación debe tener al menos 3 caracteres.',
+            'direction.max' => 'La ubicación no puede exceder los 255 caracteres.',
             
             'type_event.required' => 'El tipo de evento es obligatorio.',
             'type_event.max' => 'El tipo de evento no puede exceder los 100 caracteres.',
@@ -88,7 +88,7 @@ class EventRequest extends FormRequest
             'event_name' => 'nombre del evento',
             'description' => 'descripción',
             'date' => 'fecha',
-            'location' => 'ubicación',
+            'direction' => 'ubicación',
             /*Validar con Franklin el tipo que es el tipo de evento*/
             'type_event' => 'tipo de evento'
         ];
@@ -113,18 +113,18 @@ class EventRequest extends FormRequest
             }
             
             // Validación personalizada: no permitir más de un evento el mismo día en el mismo lugar
-            if ($this->date && $this->location) {
+            if ($this->date && $this->direction) {
                 $eventId = $this->route('id'); // Para edición
                 
                 $existingEvent = \App\Models\Event::where('date', $this->date)
-                    ->where('location', $this->location)
+                    ->where('direction', $this->direction)
                     ->when($eventId, function ($query) use ($eventId) {
                         return $query->where('id', '!=', $eventId); // Excluir el evento actual en edición
                     })
                     ->first();
                 
                 if ($existingEvent) {
-                    $validator->errors()->add('location', 'Ya existe un evento programado para esta fecha en esta ubicación.');
+                    $validator->errors()->add('direction', 'Ya existe un evento programado para esta fecha en esta ubicación.');
                     $validator->errors()->add('date', 'Ya existe un evento programado para esta fecha en esta ubicación.');
                 }
             }

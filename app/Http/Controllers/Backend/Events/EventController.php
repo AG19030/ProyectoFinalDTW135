@@ -24,17 +24,23 @@ class EventController extends Controller
         return view('backend.admin.events.events');
     }
 
+    // Muestra la tabla de eventos del sistema
+    public function eventTable(){
+        $events = Event::orderBy('id', 'ASC')->get();
+        return view('backend.admin.events.table.eventtable', compact('events'));
+    }
+
     public function create(EventRequest $request)
     {
         //Crear un Event Request para validar los datos en backend
-        //Los datos ya validados por el EventRequest
+        // Los datos ya están validados automáticamente por EventRequest
         try {
             DB::beginTransaction();
             Event::create([
-                'name' => $request->event_name,
+                'event_name' => $request->event_name,
                 'description' => $request->description,
                 'date' => $request->date,
-                'location' => $request->location,
+                'direction' => $request->direction, // ¡Campo requerido faltante!
                 'type_event' => $request->type_event,
                 'created_by' => Auth::user()->usuario
             ]);

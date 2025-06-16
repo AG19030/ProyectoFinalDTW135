@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'event_name',
+        'description', // Nuevo campo
+        'date',
+        'direction',
+        'type_event',
+        'created_by',
+        'updated_by'
+    ];
 }
