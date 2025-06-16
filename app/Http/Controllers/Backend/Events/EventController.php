@@ -20,8 +20,8 @@ class EventController extends Controller
     }
     public function index()
     {
-
-        return view('backend.admin.events.events');
+        $events = Event::all();
+        return view('backend.menus.index', compact('events'));
     }
 
     // Muestra la tabla de eventos del sistema
