@@ -65,10 +65,10 @@ class EventController extends Controller
                 return ['status' => 404, 'message' => 'Evento no encontrado.'];
             }
             // Los datos ya están validados automáticamente por EventRequest
-            $event->name = $request->event_name;
+            $event->event_name = $request->event_name;
             $event->description = $request->description;
             $event->date = $request->date;
-            $event->location = $request->location;
+            $event->direction = $request->direction;
             $event->type_event = $request->type_event;
             $event->updated_by = Auth::user()->usuario;
             $event->save();

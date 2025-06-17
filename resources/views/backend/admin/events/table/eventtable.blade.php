@@ -1,4 +1,13 @@
 <section class="content">
+    @php
+    $tiposEvento = [
+        1 => 'Clase',
+        2 => 'Reunión',
+        3 => 'Taller',
+        4 => 'Otro',
+    ];
+@endphp
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -24,7 +33,8 @@
                                     <td>{{ $dato->date }}</td>
                                     <td>{{ $dato->direction }}</td>
                                     <td>{{ $dato->description }}</td>
-                                    <td>{{ $dato->type_event }}</td> <td>
+                                    <td>{{ $tiposEvento[$dato->type_event] ?? 'No definido' }}</td>
+                                    <td>
                                         <button type="button" style="font-weight: bold" class="button button-primary button-pill button-small" onclick="verInformacion({{ $dato->id }})">
                                             <i class="fas fa-pencil-alt" title="Editar"></i>&nbsp; Editar
                                         </button>

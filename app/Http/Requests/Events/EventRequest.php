@@ -47,11 +47,11 @@ class EventRequest extends FormRequest
                 'max:255',
                 'min:3'
             ],
-            /*Validar con Franklin el tipo que es el tipo de evento y si es requerida
-            la validacion de datos*/
+          
             'type_event' => [
                 'required',
-                'integer'
+                'integer',
+                'not_in:0',
             ]
         ];
     }
@@ -62,6 +62,7 @@ class EventRequest extends FormRequest
             'event_name.required' => 'El nombre del evento es obligatorio.',
             'event_name.max' => 'El nombre no puede exceder los 255 caracteres.',
             'event_name.min' => 'El nombre debe tener al menos 3 caracteres.',
+            'type_event.not_in' => 'Debe seleccionar un tipo de evento válido.',
             
             'description.required' => 'La descripción del evento es obligatoria.',
             'description.min' => 'La descripción debe tener al menos 10 caracteres.',

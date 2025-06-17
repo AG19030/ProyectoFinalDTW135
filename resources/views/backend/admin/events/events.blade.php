@@ -17,6 +17,7 @@
     }
 </style>
 
+
 <div id="divcontenedor" style="display: none">
     <section class="content-header">
         <div class="container-fluid">
@@ -86,11 +87,11 @@
                                     <div class="form-group">
                                         <label>Tipo de Evento</label>
                                         <select name="tipo-evento" id="tipo-evento-nuevo" class="form-control" style="width: 100%;">
-                                            <option value="">Seleccione un tipo de evento</option>
-                                            <option value="clase">Clase</option>
-                                            <option value="reunion">Reunión</option>
-                                            <option value="taller">Taller</option>
-                                            <option value="otro">Otro</option>
+                                            <option value="0">Seleccione un tipo de evento</option>
+                                            <option value="1">Clase</option>
+                                            <option value="2">Reunión</option>
+                                            <option value="3">Taller</option>
+                                            <option value="4">Otro</option>
                                         </select>
                                     </div>
                                 </div>
@@ -145,12 +146,12 @@
 
                                     <div class="form-group">
                                         <label>Tipo de Evento</label>
-                                        <select name="tipo-evento" id="tipo-evento-nuevo" class="form-control" style="width: 100%;">
-                                            <option value="">Seleccione un tipo de evento</option>
-                                            <option value="clase">Clase</option>
-                                            <option value="reunion">Reunión</option>
-                                            <option value="taller">Taller</option>
-                                            <option value="otro">Otro</option>
+                                        <select name="tipo-evento" id="tipo-evento-editar" class="form-control" style="width: 100%;">
+                                            <option value="0">Seleccione un tipo de evento</option>
+                                            <option value="1">Clase</option>
+                                            <option value="2">Reunión</option>
+                                            <option value="3">Taller</option>
+                                            <option value="4">Otro</option>
                                         </select>
                                     </div>
                                 </div>
@@ -274,7 +275,7 @@
                         });
                     }
                     else {
-                        toastr.error('Error al guardar');
+                        toastr.error('Error al registrar el evento');
                     }
                 })
                 .catch((error) => {
@@ -284,7 +285,7 @@
                             toastr.error(value);
                         });
                     } else {
-                        toastr.error('Error al guardar');
+                        toastr.error('Error l registrar el evento');
                     }
                 });
         }
@@ -355,6 +356,7 @@
                         });
                     }
                     else {
+                        console.log(response.data);
                         toastr.error('Error al actualizar');
                     }
                 })
