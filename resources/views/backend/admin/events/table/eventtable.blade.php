@@ -28,8 +28,8 @@
                                         <button type="button" style="font-weight: bold" class="button button-primary button-pill button-small" onclick="verInformacion({{ $dato->id }})">
                                             <i class="fas fa-pencil-alt" title="Editar"></i>&nbsp; Editar
                                         </button>
-                                        <button type="button" style="font-weight: bold" class="button button-danger button-pill button-small" onclick="modalBorrar({{ $dato->id }})">
-                                            <i class="fas fa-tr-alt" title="Eliminar"></i>&nbsp; Eliminar
+                                        <button type="button" style="font-weight: bold" class="button button-caution button-pill button-small" onclick="modalBorrar({{ $dato->id }})">
+                                            <i class="fas fa-trash-alt" title="Eliminar"></i>&nbsp; Eliminar
                                         </button>
                                     </td>
 

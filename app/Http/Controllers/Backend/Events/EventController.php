@@ -29,7 +29,7 @@ class EventController extends Controller
         $events = Event::orderBy('id', 'ASC')->get();
         return view('backend.admin.events.table.eventtable', compact('events'));
     }
-    
+
     public function create(EventRequest $request)
     {
         //Crear un Event Request para validar los datos en backend
@@ -40,7 +40,7 @@ class EventController extends Controller
                 'event_name' => $request->event_name,
                 'description' => $request->description,
                 'date' => $request->date,
-                'direction' => $request->direction, // ¡Campo requerido faltante!
+                'direction' => $request->direction,
                 'type_event' => $request->type_event,
                 'created_by' => Auth::user()->usuario
             ]);
@@ -82,7 +82,19 @@ class EventController extends Controller
     }
     public function show($id)
     {
-        return view('backend.events.show', compact('id'));
+        if($event = Event::where('id', $id)->first()){
+
+            return ['success' => 200,
+                'message' => 'Evento encontrado.',
+                'id' => $event->id,
+                'event_name' => $event->event_name,
+                'description' => $event->description,
+                'date' => $event->date,
+                'direction' => $event->direction,
+                'type_event' => $event->type_event];
+        }else{
+            return ['status' => 404, 'message' => 'Evento no encontrado.'];
+        }
     }
     public function destroy($id)
     {
@@ -95,10 +107,10 @@ class EventController extends Controller
             }
             $event->delete();
             DB::commit();
-            return ['status' => 200, 'message' => 'Evento actualizado correctamente.'];
+            return ['status' => 200, 'message' => 'Evento eliminado correctamente.'];
         } catch (\Exception $e) {
             DB::rollback();
-            return ['status' => 500, 'message' => 'Error al actualizar el evento.'];
+            return ['status' => 500, 'message' => 'Error al eliminar el evento.'];
         }
     }
 }

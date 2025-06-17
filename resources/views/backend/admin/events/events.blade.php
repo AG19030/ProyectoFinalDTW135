@@ -85,7 +85,13 @@
 
                                     <div class="form-group">
                                         <label>Tipo de Evento</label>
-                                        <input type="text" maxlength="100" autocomplete="off" class="form-control" id="tipo-evento-nuevo" placeholder="Tipo de Evento">
+                                        <select name="tipo-evento" id="tipo-evento-nuevo" class="form-control" style="width: 100%;">
+                                            <option value="">Seleccione un tipo de evento</option>
+                                            <option value="clase">Clase</option>
+                                            <option value="reunion">Reunión</option>
+                                            <option value="taller">Taller</option>
+                                            <option value="otro">Otro</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -139,9 +145,14 @@
 
                                     <div class="form-group">
                                         <label>Tipo de Evento</label>
-                                        <input type="text" maxlength="100" autocomplete="off" class="form-control" id="tipo-evento-editar" placeholder="Tipo de Evento">
+                                        <select name="tipo-evento" id="tipo-evento-nuevo" class="form-control" style="width: 100%;">
+                                            <option value="">Seleccione un tipo de evento</option>
+                                            <option value="clase">Clase</option>
+                                            <option value="reunion">Reunión</option>
+                                            <option value="taller">Taller</option>
+                                            <option value="otro">Otro</option>
+                                        </select>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -219,7 +230,7 @@
         const url = "{{ url('/') }}";
 
         function recargar(){ // Función para recargar la tabla de eventos
-            var ruta = "{{ url('/admin/events/table') }}";
+            var ruta = "{{ url('/admin/eventos/tabla') }}";
             $('#tablaDatatable').load(ruta);
         }
 
@@ -235,7 +246,7 @@
             var fecha = document.getElementById('fecha-nuevo').value;
             var lugar = document.getElementById('lugar-nuevo').value;
             var descripcion = document.getElementById('descripcion-nuevo').value;
-            var tipoEvento = document.getElementById('tipo-evento-nuevo').value;
+            var tipoEvento = parseInt(document.getElementById('tipo-evento-nuevo').value);
 
 
             openLoading();
@@ -283,17 +294,17 @@
             openLoading();
             document.getElementById("formulario-editar").reset();
 
-            axios.get(url+'/admin/events/show/'+id)
+            axios.post(url+'/admin/eventos/info-evento/'+id)
                 .then((response) => {
                     closeLoading();
-                    if(response.data.success === 1){ // Asumiendo que el endpoint show devuelve success 1
+                    if(response.data.success === 200){
                         $('#modalEditar').modal('show');
-                        $('#id-editar').val(response.data.info.id);
-                        $('#nombre-editar').val(response.data.info.name);
-                        $('#fecha-editar').val(response.data.info.date);
-                        $('#lugar-editar').val(response.data.info.location);
-                        $('#descripcion-editar').val(response.data.info.description);
-                        $('#tipo-evento-editar').val(response.data.info.type_event);
+                        $('#id-editar').val(response.data.id);
+                        $('#nombre-editar').val(response.data.event_name);
+                        $('#fecha-editar').val(response.data.date);
+                        $('#lugar-editar').val(response.data.direction);
+                        $('#descripcion-editar').val(response.data.description);
+                        $('#tipo-evento-editar').val(response.data.type_event);
                     } else if (response.data.status === 404) {
                         toastr.error(response.data.message);
                     }
@@ -319,14 +330,15 @@
 
             openLoading()
             var formData = new FormData();
+            formData.append('id', id);
             formData.append('event_name', nombre);
             formData.append('date', fecha);
-            formData.append('location', lugar);
+            formData.append('direction', lugar);
             formData.append('description', descripcion);
             formData.append('type_event', tipoEvento);
 
 
-            axios.post(url+'/admin/events/edit/'+id, formData, {
+            axios.post(url+'/admin/eventos/editar-evento/'+id, formData, {
             })
                 .then((response) => {
                     closeLoading()
@@ -369,7 +381,7 @@
             // se envia el ID del evento
             var idevento = document.getElementById('idborrar').value;
 
-            axios.post(url+'/admin/events/destroy/'+idevento)
+            axios.post(url+'/admin/eventos/borrar-evento/'+idevento)
                 .then((response) => {
                     closeLoading()
                     $('#modalBorrar').modal('hide');
